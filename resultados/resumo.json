@@ -1,0 +1,187 @@
+{
+ "principal": {
+  "pequena/gd_best": {
+   "media": 1875.0,
+   "dp": 0.0,
+   "min": 1875,
+   "mediana": 1875.0
+  },
+  "pequena/gd_first": {
+   "media": 1875.0,
+   "dp": 0.0,
+   "min": 1875,
+   "mediana": 1875.0
+  },
+  "pequena/gd_aleatorio": {
+   "media": 1875.0,
+   "dp": 0.0,
+   "min": 1875,
+   "mediana": 1875.0
+  },
+  "pequena/sa": {
+   "media": 1875.0,
+   "dp": 0.0,
+   "min": 1875,
+   "mediana": 1875.0
+  },
+  "pequena/ga": {
+   "media": 2002.1666666666667,
+   "dp": 153.97314663621535,
+   "min": 1875,
+   "mediana": 1937.0
+  },
+  "media/gd_best": {
+   "media": 21111.466666666667,
+   "dp": 2261.8136716045983,
+   "min": 17451,
+   "mediana": 20690.5
+  },
+  "media/gd_first": {
+   "media": 17102.0,
+   "dp": 583.9686458281342,
+   "min": 16234,
+   "mediana": 16919.5
+  },
+  "media/gd_aleatorio": {
+   "media": 17392.133333333335,
+   "dp": 757.2569250754414,
+   "min": 16242,
+   "mediana": 17465.5
+  },
+  "media/sa": {
+   "media": 16831.3,
+   "dp": 506.71600901600044,
+   "min": 16235,
+   "mediana": 16681.0
+  },
+  "media/ga": {
+   "media": 19548.066666666666,
+   "dp": 1966.984335146735,
+   "min": 16498,
+   "mediana": 19636.5
+  },
+  "grande/gd_best": {
+   "media": 817732.8,
+   "dp": 24398.25657614813,
+   "min": 788457,
+   "mediana": 809608.0
+  },
+  "grande/gd_first": {
+   "media": 82447.8,
+   "dp": 7269.836751949799,
+   "min": 73413,
+   "mediana": 82655.0
+  },
+  "grande/gd_aleatorio": {
+   "media": 81546.8,
+   "dp": 6229.971442773858,
+   "min": 71109,
+   "mediana": 82441.0
+  },
+  "grande/sa": {
+   "media": 71811.7,
+   "dp": 5846.7251431891345,
+   "min": 64519,
+   "mediana": 71064.5
+  },
+  "grande/ga": {
+   "media": 89738.9,
+   "dp": 8315.53371641826,
+   "min": 76266,
+   "mediana": 91501.0
+  }
+ },
+ "p": {
+  "media/sa-gd_first": 0.04752614817755462,
+  "grande/sa-gd_first": 0.0028272720911168077,
+  "media/sa-gd_aleatorio": 0.0018045777388608123,
+  "grande/sa-gd_aleatorio": 0.00579535854433471,
+  "media/gd_first-gd_aleatorio": 0.1601232912107764,
+  "grande/gd_first-gd_aleatorio": 0.9097218891455553,
+  "media/gd_first-gd_best": 1.0930224191501067e-10,
+  "grande/gd_first-gd_best": 0.00018267179110955002,
+  "pequena/sa-ga": 2.947198115850309e-07,
+  "media/sa-ga": 7.656789132641057e-08,
+  "grande/sa-ga": 0.0005828399431792745,
+  "pequena/gd_first-ga": 2.947198115850309e-07,
+  "media/gd_first-ga": 1.3316080789668133e-06,
+  "grande/gd_first-ga": 0.05390255716938719
+ },
+ "otimos_locais": {
+  "gd_best": {
+   "restarts": 1453,
+   "distintos": 19,
+   "valores_distintos": 17,
+   "frac_restarts_otimo": 0.12663454920853406,
+   "execucoes_com_otimo": 30,
+   "distintos_com_h_estrela": 1
+  },
+  "gd_first": {
+   "restarts": 4088,
+   "distintos": 19,
+   "valores_distintos": 17,
+   "frac_restarts_otimo": 0.149706457925636,
+   "execucoes_com_otimo": 30,
+   "distintos_com_h_estrela": 1
+  },
+  "gd_aleatorio": {
+   "restarts": 4549,
+   "distintos": 447,
+   "valores_distintos": 337,
+   "frac_restarts_otimo": 0.0756210156078259,
+   "execucoes_com_otimo": 30,
+   "distintos_com_h_estrela": 1
+  },
+  "sa": {
+   "execucoes_com_otimo": 30
+  },
+  "ga": {
+   "execucoes_com_otimo": 11
+  }
+ },
+ "sa": {
+  "pequena": {
+   "t0_mediano": 941.2925,
+   "aceit_inicial": 0.49404677533664065,
+   "aceit_final": 0.0
+  },
+  "media": {
+   "t0_mediano": 14821.7615,
+   "aceit_inicial": 0.7789604582925806,
+   "aceit_final": 0.0
+  },
+  "grande": {
+   "t0_mediano": 5852.285,
+   "aceit_inicial": 0.2770669806384092,
+   "aceit_final": 0.0
+  }
+ },
+ "ga": {
+  "pequena": {
+   "distintos_final": 30.5,
+   "hamming_final": 0.49041666666666683,
+   "geracoes": 1093,
+   "gap_media_melhor_final": 0.3530201342281879
+  },
+  "media": {
+   "distintos_final": 35.0,
+   "hamming_final": 0.48175,
+   "geracoes": 3284,
+   "gap_media_melhor_final": 0.2531808917428723
+  },
+  "grande": {
+   "distintos_final": 34.0,
+   "hamming_final": 0.47,
+   "geracoes": 6572,
+   "gap_media_melhor_final": 0.11209251308081483
+  }
+ },
+ "extra": {
+  "pequena/ox": 0.707353295975977,
+  "pequena/pmx": 0.0153853553953965,
+  "media/ox": 0.4687852320949747,
+  "media/pmx": 0.501137720716669,
+  "grande/ox": 0.12122450301291661,
+  "grande/pmx": 0.12122450301291661
+ }
+}

@@ -1,0 +1,10 @@
+inst,viz,n,tam_vizinhanca,us_aleat_incremental,us_aleat_completa,ganho_aleat,us_descida_incremental,us_descida_completa,ganho_descida
+pequena,swap,12,66,1.54,1.68,1.09,1.65,1.69,1.02
+pequena,insertion,12,121,1.5,1.64,1.09,1.53,1.61,1.06
+pequena,2opt,12,66,1.5,1.67,1.11,1.6,1.66,1.03
+media,swap,50,1225,3.39,4.66,1.38,3.05,4.6,1.51
+media,insertion,50,2401,3.35,4.58,1.37,3.12,4.36,1.4
+media,2opt,50,1225,3.27,4.61,1.41,3.05,4.44,1.45
+grande,swap,150,11175,8.24,12.54,1.52,8.27,12.73,1.54
+grande,insertion,150,22201,8.22,12.45,1.52,8.1,11.95,1.48
+grande,2opt,150,11175,8.06,12.41,1.54,7.59,11.87,1.56

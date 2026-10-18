@@ -1,0 +1,30 @@
+\section{Calibração do SA e do GA}
+\label{anexo:calib}
+
+Mediana do melhor $h$ em 5 execuções por configuração (sementes
+\numrange{1000}{1004} para o SA e \numrange{2000}{2004} para o GA, distintas
+das do experimento principal). Em negrito, a melhor configuração por
+instância.
+
+\begin{table}[H]
+    \centering
+    \caption{Calibração do SA ($\chi_0$: aceitação inicial da piora média;
+    $T_f$: temperatura final).}
+    \input{tabelas/calib_sa}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Calibração do GA ($P_c=0{,}9$, torneio 3, elitismo 2, OX).}
+    \input{tabelas/calib_ga}
+\end{table}
+
+\section{Reprodução}
+
+O \texttt{README.md} do repositório lista os comandos que geram cada tabela e
+figura deste relatório:
+\begin{verbatim}
+python3 -m unittest discover -s tests   # testes (fitness, incremental, OX/PMX)
+python3 src/experimentos.py todos       # grava resultados/*.csv e *_hist.json
+python3 src/analise.py                  # gera relatorio/tabelas e figures/tp2
+\end{verbatim}

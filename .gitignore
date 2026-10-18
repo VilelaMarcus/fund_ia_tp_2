@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.DS_Store
+
+# históricos grandes que a análise não usa (regenerados por src/experimentos.py)
+resultados/*_hist.json
+!resultados/t3_hist.json
+
+# auxiliares do LaTeX
+Estudo_Dirigido_Fund_IA___2/*.aux
+Estudo_Dirigido_Fund_IA___2/*.bbl
+Estudo_Dirigido_Fund_IA___2/*.blg
+Estudo_Dirigido_Fund_IA___2/*.fdb_latexmk
+Estudo_Dirigido_Fund_IA___2/*.fls
+Estudo_Dirigido_Fund_IA___2/*.log
+Estudo_Dirigido_Fund_IA___2/*.out
+Estudo_Dirigido_Fund_IA___2/*.synctex.gz

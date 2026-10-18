@@ -1,0 +1,366 @@
+\textbf{Objetivos — O presente trabalho tem como objetivo desenvolver as respostas e análises formais para o Estudo Dirigido 2 da disciplina de Fundamentos de Inteligência Artificial do curso de Engenharia de Sistemas da UFMG. O documento aborda a formulação canônica de Problemas de Satisfação de Restrições (CSP), técnicas sistemáticas de busca com retrocesso (Backtracking/DFS\_solver) e podas antecipadas, consistência de arcos generalizada (GAC) com listas to\_do, além de métodos estocásticos de busca local (Best Improvement, Têmpera Simulada / Simulated Annealing) e metaheurísticas de Algoritmos Genéticos aplicadas a problemas combinatórios de sequenciamento industrial.}
+
+% =========================================================================
+% EXERCÍCIO 1
+% =========================================================================
+\section{Exercício 1 — Modelagem de CSP e Grafo de Restrições}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/1.jpeg}
+    \caption{Resolução manuscrita do Exercício 1: formulação do CSP, contagem de soluções e contraste estrutural entre grafos de adjacência e redes de restrições.}
+    \label{fig:ex1_manuscrito}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/1b.jpeg}
+    \caption{Resolução manuscrita do Exercício 1: formulação do CSP, contagem de soluções e contraste estrutural entre grafos de adjacência e redes de restrições.}
+    \label{fig:ex1_manuscrito}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/1c.jpeg}
+    \caption{Resolução manuscrita do Exercício 1: formulação do CSP, contagem de soluções e contraste estrutural entre grafos de adjacência e redes de restrições.}
+    \label{fig:ex1_manuscrito}
+\end{figure}
+
+
+% =========================================================================
+% EXERCÍCIO 2
+% =========================================================================
+\section{Exercício 2 — Algoritmos Sistemáticos: Generate-and-Test e DFS\_solver}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/2.jpeg}
+    \caption{Resolução manuscrita do Exercício 2: árvore de busca em profundidade com podas antecipadas, ordem de seleção de variáveis e propriedades conjuntivas de CSP.}
+    \label{fig:ex2_manuscrito}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/2c.jpeg}
+    \caption{Resolução manuscrita do Exercício 2: árvore de busca em profundidade com podas antecipadas, ordem de seleção de variáveis e propriedades conjuntivas de CSP.}
+    \label{fig:ex2_manuscrito}
+\end{figure}
+
+
+% =========================================================================
+% EXERCÍCIO 3
+% =========================================================================
+\section{Exercício 3 — Consistência de Arcos Generalizada (GAC) em Restrições N-árias}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/3a.jpeg}
+    \caption{Resolução manuscrita do Exercício 3: rede hipergrafo de restrições, filtragem de arcos ternários e distinção entre consistência de domínio e arco.}
+    \label{fig:ex3_manuscrito}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/3b.jpeg}
+    \caption{Resolução manuscrita do Exercício 3: rede hipergrafo de restrições, filtragem de arcos ternários e distinção entre consistência de domínio e arco.}
+    \label{fig:ex3_manuscrito}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/3c.jpeg}
+    \caption{Resolução manuscrita do Exercício 3: rede hipergrafo de restrições, filtragem de arcos ternários e distinção entre consistência de domínio e arco.}
+    \label{fig:ex3_manuscrito}
+\end{figure}
+
+
+% =========================================================================
+% EXERCÍCIO 4
+% =========================================================================
+\section{Exercício 4 — Propagação com GAC e Divisão de Domínio (\textit{Domain Splitting})}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{figures/4a.jpeg}
+    \caption{Resolução manuscrita do item (a): escopos das restrições e lista inicial $to\_do$ com 9 arcos direcionados.}
+    \label{fig:ex4_a_manuscrito}
+\end{figure}
+
+\begin{enumerate}[label=(\alph*), resume]
+    \item \textbf{Execução do Algoritmo GAC (Tabela de Rastreamento):}
+    Os domínios iniciais são $dom(A) = dom(B) = dom(C) = dom(D) = \{1, 2, 3, 4\}$. A lista inicial contém os 9 arcos:
+    \begin{equation*}
+        to\_do = [\langle A, c_1 \rangle, \langle B, c_1 \rangle, \langle B, c_2 \rangle, \langle C, c_2 \rangle, \langle D, c_3 \rangle, \langle C, c_4 \rangle, \langle D, c_4 \rangle, \langle A, c_5 \rangle, \langle D, c_5 \rangle]
+    \end{equation*}
+
+    \begin{table}[H]
+    \centering
+    \caption{Rastreamento passo a passo da execução do algoritmo GAC.}
+    \label{tab:gac_trace}
+    \begin{tabular}{@{}llll@{}}
+    \toprule
+    \textbf{Arco Selecionado} & \textbf{Domínio Reduzido} & \textbf{Adicionado a $to\_do$} & \textbf{Domínios Correntes} \\ \midrule
+    $\langle A, c_1 \rangle$ ($A < B$) & $dom(A) \leftarrow \{1, 2, 3\}$ & --- & $A:\{1,2,3\}, B,C,D:\{1,2,3,4\}$ \\
+    $\langle B, c_1 \rangle$ ($A < B$) & $dom(B) \leftarrow \{2, 3, 4\}$ & --- & $B:\{2,3,4\}$ \\
+    $\langle B, c_2 \rangle$ ($B < C$) & $dom(B) \leftarrow \{2, 3\}$ & $\langle A, c_1 \rangle$ & $B:\{2,3\}$ \\
+    $\langle C, c_2 \rangle$ ($B < C$) & $dom(C) \leftarrow \{3, 4\}$ & --- & $C:\{3,4\}$ \\
+    $\langle D, c_3 \rangle$ ($D \neq 2$) & $dom(D) \leftarrow \{1, 3, 4\}$ & --- & $D:\{1,3,4\}$ \\
+    $\langle C, c_4 \rangle$ ($C = D$) & $dom(C) \leftarrow \{3, 4\}$ & --- & sem alteração \\
+    $\langle D, c_4 \rangle$ ($C = D$) & $dom(D) \leftarrow \{3, 4\}$ & $\langle A, c_5 \rangle$ & $D:\{3,4\}$ \\
+    $\langle A, c_5 \rangle$ ($A \neq D$) & $dom(A) \leftarrow \{1, 2, 3\}$ & --- & sem alteração \\
+    $\langle D, c_5 \rangle$ ($A \neq D$) & $dom(D) \leftarrow \{3, 4\}$ & --- & sem alteração \\
+    $\langle A, c_1 \rangle$ ($A < B$) & $dom(A) \leftarrow \{1, 2\}$ & $\langle D, c_5 \rangle$ & $A:\{1,2\}$ \\
+    $\langle D, c_5 \rangle$ ($A \neq D$) & $dom(D) \leftarrow \{3, 4\}$ & --- & sem alteração \\ \bottomrule
+    \end{tabular}
+    \end{table}
+
+    \noindent\textbf{Domínios Finais Filtrados pelo GAC:}
+    \begin{align*}
+        dom(A) &= \{1, 2\} \\
+        dom(B) &= \{2, 3\} \\
+        dom(C) &= \{3, 4\} \\
+        dom(D) &= \{3, 4\}
+    \end{align*}
+
+    \item \textbf{Classificação do Resultado do GAC:}
+    O GAC \textbf{não} resolveu o problema sozinho. O resultado enquadra-se na situação \textbf{(iii) ao menos um domínio manteve mais de um valor} (todas as quatro variáveis terminaram com dois valores consistentes por arco). O GAC garante consistência local nas restrições, mas não elimina a necessidade de busca quando existem múltiplas configurações admissíveis.
+
+    \item \textbf{Divisão de Domínio (\textit{Domain Splitting}) sobre $A$ e Enumeração das Soluções:}
+    A partir de $dom(A) = \{1, 2\}$, decompõe-se o espaço em dois ramos disjuntos:
+    \begin{itemize}
+        \item \textbf{Ramo 1: $A = 1$}
+        \begin{itemize}
+            \item Se $B = 2 \implies c_2 (B < C)$ permite $C \in \{3, 4\}$.
+            \begin{itemize}
+                \item Para $C = 3 \implies c_4 (C = D)$ fixa $D = 3$. Checagem de $c_5 (A \neq D): 1 \neq 3$ (Válido). $\rightarrow$ \textbf{Solução 1:} $(1, 2, 3, 3)$.
+                \item Para $C = 4 \implies c_4 (C = D)$ fixa $D = 4$. Checagem de $c_5 (A \neq D): 1 \neq 4$ (Válido). $\rightarrow$ \textbf{Solução 2:} $(1, 2, 4, 4)$.
+            \end{itemize}
+            \item Se $B = 3 \implies c_2 (B < C)$ exige $C = 4 \implies c_4 (C = D)$ fixa $D = 4$. Checagem de $c_5: 1 \neq 4$ (Válido). $\rightarrow$ \textbf{Solução 3:} $(1, 3, 4, 4)$.
+        \end{itemize}
+        \item \textbf{Ramo 2: $A = 2$}
+        \begin{itemize}
+            \item Pela restrição $c_1 (A < B)$, como $A = 2$ e $dom(B) = \{2, 3\}$, deve-se ter $B = 3$.
+            \item Por $c_2 (B < C)$, com $B = 3$ e $dom(C) = \{3, 4\}$, resta apenas $C = 4$.
+            \item Por $c_4 (C = D)$, segue diretamente que $D = 4$.
+            \item Por fim, valida-se $c_5 (A \neq D): 2 \neq 4$ (Válido). $\rightarrow$ \textbf{Solução 4:} $(2, 3, 4, 4)$.
+        \end{itemize}
+    \end{itemize}
+    \textbf{Conjunto Completo de Soluções:}
+    \begin{equation*}
+        S = \{(1, 2, 3, 3), (1, 2, 4, 4), (1, 3, 4, 4), (2, 3, 4, 4)\}
+    \end{equation*}
+
+    \item \textbf{Ganho Obtido pela Propagação de Restrições:}
+    \begin{itemize}
+        \item Espaço inicial irrestrito: $4^4 = 256$ atribuições totais.
+        \item Espaço reduzido pós-GAC: $|dom(A)| \times |dom(B)| \times |dom(C)| \times |dom(D)| = 2 \times 2 \times 2 \times 2 = 16$ atribuições.
+        \item \textit{Fator de Redução:} Eliminação prévia de $240$ estados inconsistentes, correspondendo a uma redução determinística de $\mathbf{93{,}75\%}$ do espaço amostral antes de qualquer passo de busca em profundidade.
+    \end{itemize}
+\end{enumerate}
+
+% =========================================================================
+% EXERCÍCIO 5
+% =========================================================================
+\section{Exercício 5 — Busca Local: Minimização de Conflitos e \textit{Best Improvement}}
+
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Cálculo de $h(\mathcal{A}_0)$ para $\mathcal{A}_0 = \{A=3, B=2, C=1, D=2\}$:}
+    Avaliando individualmente a satisfação de cada restrição do problema:
+    \begin{itemize}
+        \item $c_1: A < B \implies 3 < 2$ \quad (\textbf{VIOLADA})
+        \item $c_2: B < C \implies 2 < 1$ \quad (\textbf{VIOLADA})
+        \item $c_3: D \neq 2 \implies 2 \neq 2$ \quad (\textbf{VIOLADA})
+        \item $c_4: C = D \implies 1 = 2$ \quad (\textbf{VIOLADA})
+        \item $c_5: A \neq D \implies 3 \neq 2$ \quad (\textit{Satisfeita})
+    \end{itemize}
+    Portanto, o número inicial de conflitos é $h(\mathcal{A}_0) = 4$.
+
+    \item \textbf{Execução do \textit{Best Improvement} (\textit{Greedy Descent}):}
+    A cada iteração, avaliam-se todas as alterações univariadas $V \leftarrow v'$ e seleciona-se a que produz a maior redução estrita em $h$.
+
+    \begin{table}[H]
+    \centering
+    \caption{Traço de evolução do algoritmo \textit{Best Improvement}.}
+    \label{tab:best_improvement}
+    \begin{tabular}{@{}ccccccl@{}}
+    \toprule
+    \textbf{Iteração} & $A$ & $B$ & $C$ & $D$ & $h$ & \textbf{Modificação Escolhida (Maior Redução)} \\ \midrule
+    0 & 3 & 2 & 1 & 2 & 4 & Estado inicial $\mathcal{A}_0$ \\
+    1 & 3 & 2 & 3 & 2 & 2 & $C \leftarrow 3$ (reduz de 4 para 2; viola $c_1, c_3$) \\
+    2 & 1 & 2 & 3 & 2 & 1 & $A \leftarrow 1$ (reduz de 2 para 1; viola apenas $c_3$) \\
+    3 & 1 & 2 & 3 & 3 & 0 & $D \leftarrow 3$ (elimina $c_3$; satisfaz $c_4: 3=3$; $1 \neq 3$) \\ \bottomrule
+    \end{tabular}
+    \end{table}
+
+    \item \textbf{Análise de Convergência:}
+    A busca convergiu para uma solução viável ($h = 0$) em 3 iterações, alcançando a atribuição consistente $\mathcal{A}^* = (1, 2, 3, 3)$. Não houve estagnação em mínimo local estrito nem platô na trajetória executada.
+
+    \item \textbf{Estratégias de Escape para Mínimos Locais e Platôs:}
+    \begin{itemize}
+        \item \textit{Random Restart (Reinício Aleatório):} Ao detectar estagnação ($\forall v \in N(\mathcal{A}), h(v) \ge h(\mathcal{A})$), a busca descarta a atribuição corrente e sorteia uniformemente uma nova atribuição completa em $D^n$. Na tabela, isso seria representado por uma nova linha com valores inteiramente novos e um valor de $h$ reiniciado.
+        \item \textit{Random Steps (Passos Aleatórios):} Com probabilidade $\epsilon > 0$, seleciona-se uma variável arbitrária e sorteia-se um valor do domínio independentemente do gradiente de $h$. Na tabela, registrar-se-iam linhas intermediárias com $h$ mantido ou piorado transitoriamente.
+    \end{itemize}
+
+    \item \textbf{Comparação Computacional: \textit{Best Improvement} vs. \textit{First Improvement}:}
+    \begin{itemize}
+        \item \textit{Custo Computacional:} O \textit{Best Improvement} examina obrigatoriamente toda a vizinhança univariada a cada passo ($\sum |D_i| - n = 4 \times 3 = 12$ avaliações completas por linha). O \textit{First Improvement with Any Conflict} sorteia uma variável em conflito e aceita a primeira modificação que apresente qualquer melhora estrita ($h' < h$), demandando consideravelmente menos cálculos de restrição por iteração.
+        \item \textit{Cenário Preferencial:} O \textit{First Improvement} é amplamente preferível em problemas de grande porte (muitas variáveis e domínios extensos), onde avaliar a vizinhança exaustiva torna o custo por iteração proibitivo.
+    \end{itemize}
+\end{enumerate}
+
+% =========================================================================
+% EXERCÍCIO 6
+% =========================================================================
+\section{Exercício 6 — Topologia de Superfícies de Busca e Metaheurísticas}
+
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Definições Formais e Relação de Inclusão:}
+    \begin{itemize}
+        \item \textit{Ótimo Local:} Uma atribuição $\mathcal{A}^*_{loc}$ é um ótimo local se possui valor de avaliação menor ou igual ao de toda a sua vizinhança direta: $h(\mathcal{A}^*_{loc}) \le h(\mathcal{A}), \forall \mathcal{A} \in N(\mathcal{A}^*_{loc})$.
+        \item \textit{Ótimo Global:} Uma atribuição $\mathcal{A}^*_{glob}$ é um ótimo global se seu custo é menor ou igual ao de qualquer outra configuração do espaço de estados: $h(\mathcal{A}^*_{glob}) \le h(\mathcal{A}), \forall \mathcal{A} \in \mathcal{S}$.
+        \item \textit{Justificativa da Afirmação:} Todo ótimo global é ótimo local porque, sendo menor que todos os estados de $\mathcal{S}$, ele é trivialmente menor que os estados contidos no subconjunto $N(\mathcal{A}^*_{glob}) \subseteq \mathcal{S}$. A recíproca não é verdadeira porque a definição de ótimo local é de raio 1; o algoritmo pode estar preso no fundo de uma bacia de atração cujo valor é expressivamente superior ao mínimo global do espaço.
+    \end{itemize}
+
+    \item \textbf{Estratégia Recomendada por Topologia de Superfície:}
+    \begin{itemize}
+        \item \textit{Superfície (a) (Múltiplas bacias profundas e vales acidentados):} Recomenda-se \textbf{Greedy Descent com Random Restart}. Estruturas com vales isolados aprisionam caminhadas aleatórias locais; múltiplos reinícios cobrem diferentes bacias de atração independentes com convergência rápida em cada descida.
+        \item \textit{Superfície (b) (Topologia ondulada com platôs e barreiras suaves):} Recomenda-se \textbf{Random Walk combinado com Greedy Descent} (ou \textit{Simulated Annealing}). Perturbações locais controladas fornecem energia suficiente para transpor barreiras baixas de potencial e atravessar platôs sem a necessidade de descartar o histórico de busca.
+    \end{itemize}
+
+    \item \textbf{Comportamento de Amostragem Aleatória e Garantias:}
+    \begin{itemize}
+        \item \textit{Random Sampling Puro:} Amostra pontos uniformes e independentes sobre a superfície, sem memória ou aproveitamento de gradientes locais.
+        \item \textit{Random Walk Puro:} Move-se como difusão estocástica local, derivando lentamente e sem convergir de forma sistemática para os fundos de vale.
+        \item \textit{Garantia Teórica:} O \textit{Random Sampling} garante convergência assintótica ao ótimo global no limite do número de amostras ($P \to 1$ quando $N \to \infty$). Contudo, no pior caso o número de tentativas exigido equivale ao tamanho do espaço amostral irrestrito ($O(|D|^n)$), equiparando-se ao custo de uma busca exaustiva.
+    \end{itemize}
+
+    \item \textbf{Incapacidade de Provar Inviabilidade na Busca Local:}
+    Métodos sistemáticos (\textit{Generate-and-Test}, DFS com retrocesso) mantêm controle rigoroso dos caminhos e podas; ao percorrer toda a árvore sem encontrar nós válidos, provam conclusivamente que o conjunto de soluções é vazio ($\mathcal{S}_{sol} = \emptyset$). Já a busca local é \textbf{incompleta}: ela não armazena o histórico dos estados já visitados e pode oscilar indefinidamente ou permanecer retida em mínimos locais, sendo incapaz de distinguir entre uma instância sem solução e uma busca que falhou em explorar a região correta.
+\end{enumerate}
+
+% =========================================================================
+% EXERCÍCIO 7
+% =========================================================================
+\section{Exercício 7 — Têmpera Simulada (\textit{Simulated Annealing})}
+
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Tabela de Probabilidades de Aceitação $P(\mathcal{A} \to \mathcal{A}')$ com $h(\mathcal{A}) = 4$:}
+    A probabilidade de aceitação de movimentos desfavoráveis ($\Delta h > 0$) segue a distribuição de Boltzmann:
+    \begin{equation*}
+        P = \exp\left(-\frac{\Delta h}{T}\right), \quad \text{onde } \Delta h = h(\mathcal{A}') - h(\mathcal{A})
+    \end{equation*}
+    Para movimentos de melhoria ou indiferentes ($h(\mathcal{A}') \le h(\mathcal{A}) \implies \Delta h \le 0$), a transição é **determinística**, ou seja, $P = 1{,}00$.
+
+    \begin{table}[H]
+    \centering
+    \caption{Probabilidade de aceitação no \textit{Simulated Annealing} para $h(\mathcal{A}) = 4$.}
+    \label{tab:sa_prob}
+    \begin{tabular}{@{}lcccc@{}}
+    \toprule
+    $\mathcal{A}'$ & $\Delta h = h(\mathcal{A}') - 4$ & $T = 10$ & $T = 1$ & $T = 0{,}1$ \\ \midrule
+    $h(\mathcal{A}') = 5$ & $+1$ & $e^{-1/10} \approx \mathbf{0{,}90}$ & $e^{-1/1} \approx \mathbf{0{,}37}$ & $e^{-1/0{,}1} = e^{-10} \approx \mathbf{0{,}00}$ \\
+    $h(\mathcal{A}') = 6$ & $+2$ & $e^{-2/10} \approx \mathbf{0{,}82}$ & $e^{-2/1} \approx \mathbf{0{,}14}$ & $e^{-2/0{,}1} = e^{-20} \approx \mathbf{0{,}00}$ \\
+    $h(\mathcal{A}') = 3$ & $-1$ & $\mathbf{1{,}00}$ & $\mathbf{1{,}00}$ & $\mathbf{1{,}00}$ \\ \bottomrule
+    \end{tabular}
+    \end{table}
+
+    \item \textbf{Limites Assintóticos de Temperatura:}
+    \begin{itemize}
+        \item \textit{Quando $T \to \infty$:} Como $-\Delta h / T \to 0$, tem-se $P = e^0 = 1$ para qualquer piora de custo. O algoritmo aceita indiscriminadamente qualquer vizinho, comportando-se estritamente como um \textbf{Random Walk puro} (foco total em exploração).
+        \item \textit{Quando $T \to 0$:} Como $-\Delta h / T \to -\infty$ para todo $\Delta h > 0$, tem-se $P \to 0$. Nenhuma piora é admitida, tornando a busca idêntica ao \textbf{Greedy Descent determinístico} (foco exclusivo em intensificação/convergência local).
+    \end{itemize}
+
+    \item \textbf{Cálculo do Resfriamento Geométrico ($T_0 = 10$, $\alpha = 0{,}99$):}
+    \begin{itemize}
+        \item Cálculo da temperatura após 500 passos:
+        \begin{equation*}
+            T_{500} = T_0 \cdot \alpha^{500} = 10 \cdot (0{,}99)^{500} \approx 10 \cdot 0{,}00657 = \mathbf{0{,}0657}
+        \end{equation*}
+        \item Determinação do menor $k$ para $T_k \le 0{,}5$:
+        \begin{align*}
+            10 \cdot (0{,}99)^k &\le 0{,}5 \implies (0{,}99)^k \le 0{,}05 \\
+            k \cdot \ln(0{,}99) &\le \ln(0{,}05) \\
+            k &\ge \frac{\ln(0{,}05)}{\ln(0{,}99)} \approx \frac{-2{,}99573}{-0{,}01005} \approx 298{,}07 \implies \mathbf{k = 299 \text{ passos}}
+        \end{align*}
+    \end{itemize}
+
+    \item \textbf{Consequências de uma Taxa Agressiva de Resfriamento ($\alpha = 0{,}5$):}
+    Ao adotar $\alpha = 0{,}5$, a temperatura decai drasticamente nas primeiras iterações (em apenas 5 iterações, $T_5 = 10 \times 0{,}5^5 = 0{,}31$). O algoritmo elimina prematuramente a probabilidade de aceitar soluções intermediárias piores, eliminando a fase de \textit{exploração} (\textit{exploration}). O sistema sofre congelamento prematuro em ótimos locais de baixa qualidade, anulando o benefício probabilístico do recozimento simulado.
+\end{enumerate}
+
+% =========================================================================
+% EXERCÍCIO 8
+% =========================================================================
+\section{Exercício 8 — Algoritmos Genéticos e Otimização Combinatória}
+
+\begin{enumerate}[label=(\alph*)]
+    \item \textbf{Associação de Conceitos de Computação Evolutiva ao Problema:}
+    \begin{itemize}
+        \item \textit{Cromossomo:} Uma permutação completa e ordenada das 5 corridas de aço, definindo a sequência de processamento contínuo (ex.: $[C_1, C_2, C_3, C_4, C_5]$).
+        \item \textit{Gene:} Cada posição de agendamento na sequência de produção (1º lugar, 2º lugar, etc.).
+        \item \textit{Alelo:} A corrida específica alocada em dada posição (um elemento de $\{C_1, C_2, C_3, C_4, C_5\}$).
+        \item \textit{Aptidão (\textit{Fitness}):} Custo financeiro total acumulado de setup da sequência: $\sum_{i=1}^{4} \text{Setup}(C_{\pi(i)}, C_{\pi(i+1)})$ (problema de minimização).
+        \item \textit{População:} Conjunto de sequências candidatas avaliadas e recombinadas a cada geração.
+    \end{itemize}
+
+    \item \textbf{Cálculo do Fitness dos Pais e Seleção:}
+    Avaliando os custos de transição a partir da matriz $M(i, j)$:
+    \begin{itemize}
+        \item \textbf{Pai 1:} $\langle C_1 \to C_2 \to C_3 \to C_4 \to C_5 \rangle$
+        \begin{equation*}
+            f(\text{Pai 1}) = M(C_1, C_2) + M(C_2, C_3) + M(C_3, C_4) + M(C_4, C_5) = 8 + 7 + 9 + 10 = \mathbf{34}
+        \end{equation*}
+        \item \textbf{Pai 2:} $\langle C_5 \to C_4 \to C_1 \to C_2 \to C_3 \rangle$
+        \begin{equation*}
+            f(\text{Pai 2}) = M(C_5, C_4) + M(C_4, C_1) + M(C_1, C_2) + M(C_2, C_3) = 5 + 6 + 8 + 7 = \mathbf{26}
+        \end{equation*}
+        \item \textit{Seleção:} Tratando-se de um problema de \textbf{minimização} de custos, o **Pai 2** possui maior aptidão ($26 < 34$). Em esquemas de seleção como roleta invertida ou torneio de minimização, o indivíduo de menor custo recebe a maior probabilidade de reprodução.
+    \end{itemize}
+
+    \item \textbf{Cruzamento Baseado em Ordem (OX):}
+    Copiando as 3 primeiras posições do Pai 1 e preenchendo as demais conforme a ordem relativa do Pai 2:
+    \begin{itemize}
+        \item Bloco fixo do Pai 1: $[C_1, C_2, C_3, \underline{\phantom{C}}, \underline{\phantom{C}}]$
+        \item Sequência do Pai 2: $(C_5, C_4, C_1, C_2, C_3)$. Eliminando as já inseridas $\{C_1, C_2, C_3\}$, sobram: $C_5$ e depois $C_4$.
+        \item Filho resultante: $[C_1, C_2, C_3, C_5, C_4]$.
+    \end{itemize}
+    \textbf{Fitness do Filho:}
+    \begin{equation*}
+        f(\text{Filho}) = M(C_1, C_2) + M(C_2, C_3) + M(C_3, C_5) + M(C_5, C_4) = 8 + 7 + 4 + 5 = \mathbf{24}
+    \end{equation*}
+
+    \item \textbf{Mutação por Troca (\textit{Swap}) entre as Posições 2 e 4:}
+    Trocando a 2ª posição ($C_2$) com a 4ª posição ($C_5$) no cromossomo do filho:
+    \begin{equation*}
+        \text{Filho mutado} = [C_1, \mathbf{C_5}, C_3, \mathbf{C_2}, C_4]
+    \end{equation*}
+    Calculando o novo custo:
+    \begin{equation*}
+        f(\text{Filho mutado}) = M(C_1, C_5) + M(C_5, C_3) + M(C_3, C_2) + M(C_2, C_4) = 11 + 12 + 10 + 13 = \mathbf{46}
+    \end{equation*}
+    \begin{itemize}
+        \item \textit{Avaliação:} A mutação **não foi benéfica** nesta operação específica, pois elevou o custo de 24 para 46.
+        \item \textit{Manutenção do Operador:} O operador é mantido porque atua como mecanismo de injeção contínua de diversidade na população, evitando a convergência prematura em mínimos locais e restabelecendo material genético que o operador de cruzamento eliminou.
+    \end{itemize}
+
+    \item \textbf{Inviabilidade do Cruzamento de Ponto Único Clássico:}
+    Em problemas de ordenamento permutacional, cada corrida deve figurar rigorosamente uma única vez. O cruzamento binário clássico de corte linear simples não preserva bijeções.
+    \begin{itemize}
+        \item \textit{Exemplo com ponto de corte após o gene 3:}
+        \begin{align*}
+            \text{Pai 1} &= [C_1, C_2, C_3 \mid C_4, C_5] \\
+            \text{Pai 2} &= [C_5, C_4, C_1 \mid C_2, C_3] \\
+            \text{Filho Inválido} &= [C_1, C_2, C_3 \mid C_2, C_3]
+        \end{align*}
+        O indivíduo resultante duplica as corridas $C_2$ e $C_3$ e suprime $C_4$ e $C_5$, tornando a solução inviável para o lingotamento contínuo.
+    \end{itemize}
+
+    \item \textbf{Complexidade Fatorial e Escolha de Métodos:}
+    \begin{itemize}
+        \item Para $N = 5$: $5! = 120$ sequências possíveis. Uma busca exaustiva (força-bruta) é trivial e executada instantaneamente.
+        \item Para $N = 20$: $20! \approx 2{,}43 \times 10^{18}$ sequências possíveis. Processando um bilhão de configurações por segundo, o cálculo consumiria cerca de 77 anos.
+        \item \textit{Implicação Prática:} Problemas de sequenciamento industrial possuem escala combinatória $\mathcal{O}(N!)$, inviabilizando a enumeração exaustiva para instâncias reais de engenharia. Isso fundamenta a necessidade de metaheurísticas (Algoritmos Genéticos, Têmpera Simulada), que encontram soluções de alta qualidade em tempo polinomial.
+    \end{itemize}
+\end{enumerate}

@@ -1,0 +1,128 @@
+\documentclass[11pt]{article}
+
+\renewcommand{\rmdefault}{phv} % Arial
+\renewcommand{\sfdefault}{phv} % Arial
+
+\usepackage[brazilian]{babel}
+%\usepackage{isolatin1}
+%%%\usepackage[latin1]{inputenc}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}  
+\usepackage{amsmath, xparse}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+
+
+\usepackage{graphicx}
+\usepackage{geometry}
+%\usepackage[svgnames]{xcolor}
+\usepackage{dirtree}
+\usepackage{comment}
+
+\usepackage{siunitx}
+\sisetup{locale = FR}
+
+% Table
+\usepackage{multicol,multirow}
+\usepackage{booktabs}
+\usepackage{lscape}
+\usepackage{afterpage}
+\usepackage{ltablex}
+\usepackage{threeparttablex}
+\newcommand{\mtnote}[1]{\textsuperscript{\TPTtagStyle{#1}}}
+\usepackage{array}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{Z}{>{\centering\arraybackslash}X}
+%\newcolumntype{b}{>{\hsize=1.5\hsize}Y}
+\newcolumntype{s}{>{\hsize=.5\hsize}Y}
+%\newcolumntype{m}{>{\hsize=1.25\hsize}Y}
+\newcolumntype{B}{>{\hsize=2\hsize}Y}
+\newcolumntype{S}{>{\hsize=.8\hsize}Y}
+\usepackage{caption}
+\captionsetup{width=\textwidth}
+\usepackage[section]{placeins} % Float barrier
+
+%\usepackage[english]{babel}
+\usepackage{titlesec}
+ \usepackage{setspace}
+%\usepackage{epsfig}
+\usepackage[breaklinks,colorlinks,bookmarks,linkcolor=black]{hyperref}
+\usepackage[numbers,sort]{natbib}
+\usepackage{hypernat}
+%\usepackage{psfrag}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage[table,xcdraw,svgnames]{xcolor}
+
+\usepackage{cite}
+
+\usepackage{enumitem}
+%\usepackage{subfig}
+\usepackage{array}
+\usepackage{float}
+\usepackage{svg}
+\usepackage{subfigure}
+\usepackage{adjustbox}
+\usepackage{indentfirst} % Identa depois de section
+\usepackage{pdflscape} % possibilita paginas em modo paisagem
+
+%\captionsetup{justification=centering,font=normal}
+%\captionsetup[figure]{font=small}
+%\captionsetup[table]{font=small}
+
+
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcommand{\TODO}[1]{\textcolor{red}{#1}}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcommand{\HorRule}[1]{\color{#1} \rule{\linewidth}{2pt}} % Defines the gold horizontal rule
+
+\geometry{a4paper,nohead,left=2cm,right=2cm,top=2.2cm,bottom=2cm}
+
+\onehalfspace
+
+\setlength{\parskip}{1em} % espaço entre paragrafos
+
+% Altera espacamento dos titulos
+\titlespacing*{\chapter}{0pt}{-20pt}{0pt}
+\titlespacing*{\section}{0pt}{10pt}{0pt}
+
+\titleformat{\chapter}{\normalFont\LARGE\bfseries}{\thechapter}{1em}{}
+
+\titleformat{\subsection}
+{\normalsize\bfseries} % format
+{\thesubsection}       % label
+{1em}                  % separation between label and body
+{}                     % code preceding title body
+[]                     % code following title body
+
+%--------------------------------------------------------------------
+% Dados do relatório
+%--------------------------------------------------------------------
+% Título do Projeto
+\newcommand{\TITULO}{Estudo dirigido 2}
+% Data 
+
+% Título do Relatório
+\newcommand{\RELATORIO}{Fundamentos de Inteligência Artificial}
+
+% Querido Professor
+\newcommand{\PROFESSOR}{Professor: Cristiano Leite de Castro}	
+%--------------------------------------------------------------------
+
+\begin{document}
+\input{capa}
+%\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+\input{tex/texto}
+
+\bibliographystyle{plain}
+
+\end{document}

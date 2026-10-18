@@ -1,0 +1,106 @@
+INSTRUÇÕES BÁSICAS DE USO DO TEMPLATE
+
+Esse é um template que será compartilhado com todos os alunos da disciplina Eng158, logo não deve ser editado. Para criar sua versão editável, basta proceder para a página de seus projetos do Overleaf (botão da casa no canto superior esquerdo), fazer o download do projeto, clicar em "New Project" e "Upload Project" e selecionar o template baixado.
+
+Para preencher os dados da capa, ir para o arquivo "capa.tex" e preencher a data na linha 19 e o nome na linha 48.
+
+Abaixo estão instruções para realizar algumas ações para aqueles não tão familiarizados com LaTeX e Overleaf. O conteúdo desse arquivo não será copilado na forma do PDF, servindo apenas de referência para a escrita no arquivo "texto.tex". Caso haja dúvida sobre o comportamento de qualquer uma das estruturas listadas abaixo, ou deseje-se um exemplo do resultado final, basta copiar a estrutura para "texto.tex" e clicar "Recompile".
+
+1. Figuras:
+
+1.1. Adição de figuras:
+Para se adicionar uma figura no texto é preciso fazer o upload do arquivo para a pasta "figures" localizada na barra de ações à esquerda da tela (não adicionar dentro da subpasta "logos"). Caso o arquivo não seja adicionado ou identificado apropriadamente, o resultado será uma figura em branco com o seu nome. No código do documento ("texto.tex") utiliza-se a seguinte estrutura (caso trate-se de um tipo de arquivo que não "jpg" substituir no local relevante):
+\begin{figure}[H]
+ {\includegraphics[width=18cm,height=15cm,keepaspectratio]     {figures/nome_do_arquivo.jpg}}
+    \centering
+    \caption{Legenda.}
+    \label{fig:nome_da_figura}
+\end{figure}
+
+1.2. Citação no corpo do texto:
+Para se fazer referência a uma figura é possível escrever o seu identificador por extenso, tal como "na Figura 1", ou então é possível usar o comando \autoref{fig:nome_da_figura} para fazes referências automaticamente, que atualiza o número indicador da figura caso outras sejam adicionadas.
+
+1.3. Exemplo:
+
+O projeto elétrico da impressora 2D, ilustrado na \autoref{fig:esquematico_alto_nivel}, pode ser resumido basicamente em cinco elementos de alto nível, sendo eles:
+
+\begin{figure}[H]
+ {\includegraphics[width=18cm,height=15cm,keepaspectratio]     {figures/diagramas/arquivo_esquematico.jpg}}
+    \centering
+    \caption{Diagrama elétrico de alto nível da impressora 2D.}
+    \label{fig:esquematico_alto_nivel}
+\end{figure}
+
+
+2. Tabelas:
+
+2.1. Adição de tabelas:
+Para se criar tabelas utiliza-se a seguinte estrutura no código do texto ("texto.tex"):
+\begin{table}[htb!]
+\begin{tabularx}{\linewidth}{YYY}
+	\caption{Legenda.} 
+        \label{table:nome_da_tabela} \\
+        \toprule
+	Título Coluna 1 & Título Coluna 2 & Título Coluna 3  \\
+        \midrule 
+        Elemento [1,1] & Elemento[1,2] & Elemento[1,3]  \\
+	Elemento [2,1] & Elemento[2,2] & Elemento[2,3]  \\
+	Elemento [3,1] &  & Elemento[3,3]  \\
+	Elemento [4,1] & Elemento[4,2] & Elemento[4,3]  \\
+	\bottomrule
+\end{tabularx}
+\end{table}
+O número de "Y"s na segunda linha da estrutura determina o número de colunas da tabela. É necessário manter o mesmo número de separadores "&" em todas as linhas, igual ao número de colunas menos 1, mesmo se alguma das posições da tabela for vazia (como no caso da 3 linha). O número de linhas da tabela pode ser infinito, sendo necessário apenas inserir mais texto acima do comando "\bottomrule", e sempre finalizando a linha com o comando "\\".
+
+2.2. Citação no corpo do texto:
+Para se fazer referência a uma tabela  é possível escrever o seu identificador por extenso, tal como "na Figura 1", ou então é possível usar o comando \autoref{table:nome_da_tabela} para fazes referências automaticamente, que atualiza o número indicador da tabela caso outras sejam adicionadas.
+
+2.3. Exemplo:
+A comparação entre esses valores calculados e as leituras feitas no software computacional é feita na \autoref{table:comparacao_transformador}. As diferenças observadas são tais que é possível afirmar que a aproximação do ensaio em circuito aberto, que despreza a impedância do enrolamento primário frente à impedância de magnetização, é válida uma vez que as perdas no núcleo são dominantes.
+
+\begin{table}[htb!]
+\begin{tabularx}{\linewidth}{YYY}
+	\caption{Comparação das aproximações analíticas com o modelo computacional.} 
+        \label{table:comparacao_transformador} \\
+        \toprule
+	Parâmetro & Analítico & FEMM  \\
+        \midrule 
+	$R_P$ $(\Omega )$ & \num{453,50e-3} &  \num{449,48e-3}  \\
+	$L_M$ (H) & \num{3,03e0} & \num{3,02e0} \\
+	$P_{Cu}$ (W) &  &  \num{5,58e-3} \\
+	$P_{Fe}$ (W) & \num{4,13e0} &  \num{3,32e0} \\
+	\bottomrule
+\end{tabularx}
+\end{table}
+
+
+3. Listas de bulletpoints:
+Para se criar listas enumeradas, tal como bulletpoints, utiliza-se a seguinte estrutura no código do texto ("texto.tex"):
+\begin{itemize}
+    \item Item 1;
+    \item Item 2;
+    \item ...;
+    \item Item N.
+\end{itemize}
+
+3.1. Exemplo:
+\begin{itemize}
+    \item Chaves fim de curso: agem como sensores de calibração no esforço de impressão, permitindo que o posicionamento inicial do cabeçote de impressão seja sempre padronizado. São conectadas diretamente ao controlador do sistema;
+    \item Drivers dos motores de passo: agem como atuadores que traduzem os comandos do controlador para os motores de passo, com o objetivo de aumentar a precisão de seus movimentos. São conectados diretamente ao controlador do sistema;
+    \item Motores de passo: agem como atuadores diretamente no esforço de impressão, controlando as correias que posicionam o cabeçote de impressão no local apropriado para criação da imagem desejada. São conectados aos seus respectivos drivers;
+    \item Fonte de alimentação de 12V: Transfere potência a todos componentes do sistema exceto ao ESP32.
+    \item Regulador de tensão: Converte os 12V da fonte externa para 5V.
+\end{itemize}
+
+
+4. Equação:
+Para se incluir uma equação no corpo do texto utiliza-se a seguinte estrutura no código do texto ("texto.tex"):
+\begin{equation}
+Equação
+\end{equation}
+
+4.1. Exemplo:
+\begin{equation}
+Z_P = \frac{V_P}{i_p} = \frac{V_S a}{i_S a^{-1}} = a^{2}Z_S
+\end{equation}
+

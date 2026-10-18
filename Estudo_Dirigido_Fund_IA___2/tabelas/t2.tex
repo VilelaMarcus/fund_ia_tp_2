@@ -1,0 +1,19 @@
+\begin{tabular}{llrrrrrr}
+\toprule
+ & & \multicolumn{3}{c}{mediana do melhor $h$ (10 exec.)} & \multicolumn{3}{c}{$\mu$s por sucessor} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}
+Instância & Vizinhança & Best & First & $p$ (First) & completa & incremental & ganho \\
+\midrule
+Pequena ($n=12$) & Swap & 1\,875 & \textbf{1\,875} & -- & 1,7 & 1,6 & 1,02$\times$ \\
+ & Insertion & 1\,875 & 1\,875 & 1,000 & 1,6 & 1,5 & 1,06$\times$ \\
+ & 2-opt & 1\,875 & 1\,875 & 1,000 & 1,7 & 1,6 & 1,03$\times$ \\
+\midrule
+Intermediária ($n=50$) & Swap & 30\,896 & 25\,690 & 0,0002 & 4,6 & 3,0 & 1,51$\times$ \\
+ & Insertion & 20\,326 & \textbf{17\,408} & -- & 4,4 & 3,1 & 1,40$\times$ \\
+ & 2-opt & 20\,514 & 18\,502 & 0,121 & 4,4 & 3,0 & 1,45$\times$ \\
+\midrule
+Grande ($n=150$) & Swap & 468\,855 & 150\,198 & 0,0002 & 12,7 & 8,3 & 1,54$\times$ \\
+ & Insertion & 821\,542 & \textbf{81\,175} & -- & 11,9 & 8,1 & 1,48$\times$ \\
+ & 2-opt & 473\,487 & 95\,346 & 0,0003 & 11,9 & 7,6 & 1,56$\times$ \\
+\bottomrule
+\end{tabular}

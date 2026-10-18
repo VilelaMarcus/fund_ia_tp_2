@@ -1,0 +1,7 @@
+pequena: h(identidade) = 4366
+pequena: guloso (menor acréscimo de atraso) = 3168
+media: h(identidade) = 181339
+media: guloso (menor acréscimo de atraso) = 83434
+grande: h(identidade) = 1308503
+grande: guloso (menor acréscimo de atraso) = 398095
+pequena: ótimo exato (PD com fronteira de Pareto) = 1875, pi* = (5, 4, 1, 6, 7, 2, 8, 12, 3, 10, 9, 11)
